@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weatherapp/client/client.dart';
+import 'package:weatherapp/model/model.dart';
 
 class WeatherApp extends StatefulWidget {
   const WeatherApp({super.key});
@@ -8,6 +10,7 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
+  WeatherModel ? weatherModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +22,10 @@ class _WeatherAppState extends State<WeatherApp> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     print("call btn");
+                    weatherModel = await WeatherApiClient().request();
+                    print(weatherModel?.currentWeather);
                   },
                   child: Text("Get Data"))
             ],
